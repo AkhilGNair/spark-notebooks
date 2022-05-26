@@ -1,0 +1,50 @@
+version: '3'
+services:
+
+  master-node:
+    image: spark
+    build:
+      context: .
+      dockerfile: ./spark.Dockerfile
+    hostname: master-node
+    volumes:
+      - ./data:/root/data
+    command: spark-class org.apache.spark.deploy.master.Master --host master-node
+    ports:
+      - 6066:6066
+      - 7077:7077
+      - 8080:8080
+  
+  worker-node:
+    image: spark
+    build:
+      context: .
+      dockerfile: ./spark.Dockerfile
+    hostname: worker-node
+    command: spark-class org.apache.spark.deploy.worker.Worker spark://master-node:7077
+    volumes:
+      - ./data:/root/data
+    environment:
+      SPARK_WORKER_CORES: 1
+      SPARK_WORKER_MEMORY: 1g
+      SPARK_WORKER_WEBUI_PORT: 8081
+    links:
+      - master-node
+  
+  zeppelin:
+    image: zeppelin
+    build:
+      context: .
+      dockerfile: ./zeppelin.Dockerfile
+    hostname: zeppelin
+    environment:
+      MASTER: spark://master-node:7077
+    links:
+      - master-node
+    volumes:
+      - ./notebook:/opt/apache-zeppelin/notebook
+      - ./data:/root/data
+    ports:
+      - 4040:4040
+      - 8888:8888
+      - 8889:8889
