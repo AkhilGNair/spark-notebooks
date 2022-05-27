@@ -23,6 +23,3 @@ EXPOSE 8080 8081 7077 6066 4040
 
 # Default mode: Execute Spark Shell
 CMD ["spark-shell", "--master", "local[2]"]
-
-
-
