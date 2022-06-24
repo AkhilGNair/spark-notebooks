@@ -1,3 +1,6 @@
+data/warehouse/*
+!data/warehouse/.gitkeep
+
 data/**/*.csv
 data/**/*.parquet
 

@@ -28,3 +28,4 @@ install.packages("arrow")
 # Confirm by spotting the build flag "-DARROW_R_WITH_PARQUET"
 arrow::install_arrow()
 ```
+

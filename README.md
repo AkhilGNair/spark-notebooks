@@ -31,3 +31,25 @@ docker-compose down
 
 from this directory.
 
+## Delta Lake
+
+To confirm that the `delta` file format is installed and available,
+first configure the spark context
+
+```
+%spark.conf
+
+spark.jars.packages io.delta:delta-core_2.12:1.2.1
+spark.jars.packages io.delta:delta-storage:1.2.1
+spark.sql.extensions io.delta.sql.DeltaSparkSessionExtension
+spark.sql.catalog.spark_catalog org.apache.spark.sql.delta.catalog.DeltaCatalog
+spark.sql.warehouse.dir /root/data/warehouse
+```
+
+Then, write some example data to a `delta` table
+
+```
+val data = spark.range(0, 5)
+data.write.format("delta").save("/root/data/warehouse/my-table")
+```
+

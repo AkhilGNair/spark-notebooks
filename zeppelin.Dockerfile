@@ -1,4 +1,4 @@
-FROM spark
+FROM spark:3.2.1
 
 # Set some environment variables
 ENV DOWNLOAD_URL https://dlcdn.apache.org/zeppelin/zeppelin-0.10.1/zeppelin-0.10.1-bin-all.tgz

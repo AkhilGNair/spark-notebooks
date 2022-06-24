@@ -2,7 +2,7 @@ version: '3'
 services:
 
   master-node:
-    image: spark
+    image: spark:3.2.1
     build:
       context: .
       dockerfile: ./spark.Dockerfile
@@ -16,7 +16,7 @@ services:
       - 8080:8080
   
   worker-node:
-    image: spark
+    image: spark:3.2.1
     build:
       context: .
       dockerfile: ./spark.Dockerfile
@@ -32,7 +32,7 @@ services:
       - master-node
   
   zeppelin:
-    image: zeppelin
+    image: zeppelin:3.2.1
     build:
       context: .
       dockerfile: ./zeppelin.Dockerfile
